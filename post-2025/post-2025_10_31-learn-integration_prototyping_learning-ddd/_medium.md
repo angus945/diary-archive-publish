@@ -1,0 +1,686 @@
+
+# 【專題】整合、原型和初學 DDD
+
+上個月初有加碼一篇[\*\*【專題】系統原型和 AI 的瘋狂效率](https://home.gamer.com.tw/artwork.php?sn=6205856)，\*\*這篇算是接續的？就是一些用 AI 輔助學習和 VibeCode 的過程紀錄。
+
+還是前情提要一下，上篇我把遊戲的一些基本功能架好，投擲、攻擊、觸發技能，可以把敵人卡到武器上等等。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_8.jpg)
+
+### 數值公式計算（80% AI）
+
+數值計算，應該是所有遊戲都會有的需求，但自己做這部分功能的經驗也不多，以前就是哪裡需要計算就寫在哪，這次也問問看 GPT 有沒有接口化實現方式。（其實應該先叫他給更多種方案才對）
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_128.jpg)
+
+總之，這個方案的重點就是用泛型 <T> 指定的輸入輸出的格式，透過配對尋找需要的算法，專案可以實作自己的方案然後註冊給系統，使用者也不需要知道具體的算法是什麼。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_7.jpg)
+
+然後提供一個 Unity ScriptableObject 的基底類。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_40.jpg)
+
+再讓 AI 針對 ScriptableObject 提供一個試算結果的 CustomInspector。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_51.jpg)
+
+這樣就能方便的調整配置參數和測試試算結果了，如果試玩的時候感覺數值表現怪怪的就可以先來這裡初步除錯，看是不是算法有問題或參數填錯。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_62.jpg)
+
+至於效果嘛…我也不確定，畢竟這個做法也是第一次嘗試，等後面幾篇的串接應該就會有心得了。
+
+### 串接數值計算（< 10% AI）
+
+上面用 AI 做了一個數值計算方案，接著要來串接進遊戲需要計算的部分。在「當前」的設計中，需要計算的大概有這些項目：
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_73.jpg)
+
+敵人的捕捉阻擋值，代表敵人有多難被玩家串起來，數值是血量百分比。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_84.jpg)
+
+捕捉判斷，判斷玩家能不能把敵人串到武器上，判斷條件是武器的捕捉力量是否大於目標阻擋值。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_95.jpg)
+
+攻擊力提供計算，根據被串敵人提供的基礎值 _ 血量百分比 _ 曲線，代表玩家串起的敵人可以提供多少額外攻擊力。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_106.jpg)
+
+抵抗值，代表被串起來的敵人脫離武器的可能性有多高，也是血量百分比 \* 曲線。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_117.jpg)
+
+武器的捕捉力量，由一個基礎值開始，玩家每多串一個敵人就會越來越低。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_8.jpg)
+
+武器攻擊力，基礎值 + 串起敵人提供的總額外攻擊力。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_19.jpg)
+
+被串敵人脫離武器的計算，根據串起敵人的數量查陣列配置的機率參數。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_30.jpg)
+
+武器血量損失，玩家攻擊時會讓上面串的敵人扣百分比血量，歸零會讓敵人死亡並脫落。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_33.jpg)
+
+要計算的時候就透過接口，將指定格式的輸入傳入，然後取得輸出結果。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_34.jpg)
+
+這樣核心戰鬥需要的計算都有了 :D
+
+至於感想嗎…
+
+雖然算法被抽象隔離出來了，但調用計算接口的地方還是四散在各處，有些寫在敵人身上、有些在捕捉系統，有些則在武器腳本裡，不知道有沒有辦法統一處理？
+
+另一點是輸入、輸出的格式不好修改，因為調用方需要手動填入參數，有時改算法需要不同的輸入就會影響到調用處的程式碼要一起修。
+
+而解決方案、或需不需要解決就再觀察吧 :P
+
+### 敵人脫離效果（< 10% AI）
+
+被串到武器上的敵人還是有機會脫離，畢竟設定上主角是真的拿武器把串起來，所以敵人就算在武器上也還是活著的。
+
+所以也可能在某個時機被噴回場地上，憤怒的攻擊玩家？
+
+考慮到遊戲畫面的喜感，我希望敵人噴飛有更誇張的表現，整隻武器的敵人會往上炸開之類的。
+
+原本要直接加在敵人的主腳本，但腳本其實有點職責混雜了，不好維護，最後決定多包一層容器物件用來釋放敵人。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_35.jpg)
+
+當敵人從武器脫離時，不會直接恢復敵人的活動，而是會先放入另一個有 Collider 與 Rigidbody 的容器，並隨機往上施力丟出。我還有給容器施加額外的 Toque 力量，讓敵人噴飛的時候有更誇張的旋轉效果。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_36.jpg)
+
+在「當前」的設計中，玩家武器串越多敵人，行動時敵人就有更高的機率從武器脫離，算是一種武器變強導致的風險（但這樣設計有問題，後面改掉了）。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_1.jpg)
+
+除了意外脫離之外，玩家也可以用重擊把武器上的敵人甩出去，會對砸到的目標造成傷害 ww
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_2.jpg)
+
+### 測試競技場（< 5% AI）
+
+為了測試遊戲的核心玩法循環，我也弄了簡單的競技場，會不斷生成新的敵人在場上給玩家打，直到玩家血量歸零。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_37.jpg)
+
+然後…各種新 bug 都跑出來了，主要問題都出在我跟 Untiy 的整合的部分，例如碰撞。
+
+我原本使用 Physics Ignore Collision 避免捉捕&串接敵人機制會發生的自我碰撞，但一些子父層級的轉移導致忽略碰撞的集合產生奇怪的結果（就是忽略了不該忽略的目標的意思）。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_38.jpg)
+
+也沒特別修，就先用一個除錯按鈕應急，還加了其他嚴重 bug 的修復按鈕，像是玩家把自己撿起來，武器、敵人穿出競技場之類的。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_39.jpg)
+
+不修主要是維護性問題，其實整合部份程式的屎山已經開始堆積了。
+
+上篇【專題】有提到，我的程式目前沒特別架構，只有分成 AI 寫的可重用模組框架，還有我針對專案進行的實作和整合。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_41.jpg)
+
+AI 的部分沒啥問題，畢竟每個系統都是獨立的，模組間也不互相依賴。
+
+但我的整合就沒那麼嚴謹了，所以不同系統、系統跟視覺之間有蠻多職責混雜的部分，那些碰撞問題我一時也想不到怎麼修。
+
+果然我才是那個造屎機器 (´・ω・`)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_42.jpg)
+
+至少一審需要的 Demo 已經有了，也初步測試和修正完玩法問題，之後重構一下整合腳本就好。所以接下來應該不會有什麼新功能出現，就是寫我學 DDD 和重構的過程而已。
+
+### 學習 DDD（80% AI ?）
+
+之前有嘗試接觸過 Clean Code, Domain Driven Development ，但都是從 YT 看到的零碎知識，加上當時對 SOLID 等基礎知識理解不足，所以沒學起來。
+
+這次配合重構再嘗試一次，有前置知識後加上 AI 幫助應該會可靠許多。
+
+因為完整對話串太長，所以這裡就結我問的部分疑問出來而已。
+
+總之，我先問了幾個隨機想到的疑惑，然後丟給 GPT 解釋。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_43.jpg)
+
+然後用深入研究功能，給 GPT 訪問 github Repo 的權限，要他針對專案分析、提供一個架構建議的報告。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_44.jpg)
+
+但報告出來之後，發現裡面有太多資訊超出我的理解範圍了。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_45.jpg)
+
+所以我又開了另一個對話串，用「學習與研究」模式讓 GPT 逐步解釋 DDD。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_46.jpg)
+
+然後就是一大串解釋、基礎知識和專有名詞，這裡就不貼出來了，放一些我的追問、實際遇到的問題或是思考時卡住的點。 （但提醒一聲， GPT 的回答不見得正確噢，有些錯的地方也是我實做才開始發現，重問之後糾正的）
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_47.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_48.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_49.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_50.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_52.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_53.jpg)
+
+GPT 的解釋都很長一段，但篇幅問題我就只截問題和回應的開頭，或一些有趣的類比。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_54.jpg)
+
+同時我還有另一個對話用來問各種零碎問題，對話中出現的專有名詞、縮寫等等，避免主要對話串 Context 過長。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_55.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_56.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_57.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_58.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_59.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_60.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_61.jpg)
+
+我用三個對話串當做接觸 DDD 的起點，一個針對專案提出建議、一個用來學基礎知識、一個用來尋問零碎的問題。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_63.jpg)
+
+至於正確性嘛…我也沒辦法保證，畢竟超出我的能力邊界，但至少比我從零碎資料瞎學來的準了，有人...有 AI 能問是真的輕鬆許多。
+
+要再更好可能就得去上課，目前還沒需求，先靠 GPT + 做中學吧。
+
+後件幾篇就開始實踐和重構 :D
+
+**保險起見還是提醒一聲，後面的內容有很大量的理解或命名錯誤，可能會修正也可能不會，就是看寫文的當下有沒有發現，要等下下月的【學習】才會有比較系統和初步糾錯過的筆記。**
+
+### 重構輸入方案（80% AI）
+
+接著就開始重構，從最初的 Input 系統開始。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_6.jpg)
+
+但當然不是真的從頭，其實原本 GPT 生出的輸入系統架構就不錯了，只是沒有做領域分層而已 。
+
+所以我直接把整個 Input 相關腳本給 GPT，要他提供 DDD 該有的資料夾結構。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_64.jpg)
+
+在一個 Input 資料夾下分成四層，Domain, Application, Infrastructure, Presentation。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_65.jpg)
+
+Domain 是最基底的資料結構，包括按鈕狀態、輸入狀態等，Application 是一些資料轉接以及抽象的接口定義。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_66.jpg)
+
+Infrastructure 則是輸入系統與 Unity 對接的部分，例如 Camera, 場景的 Bootstrap, DI 初始化還有各種輸入方案的實施，Legacy Input, New Input System 等等。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_67.jpg)
+
+至於 Presentation 就是除錯用的面板而已，稍微修正了面板原本對 Infrastructure 資訊的直接依賴。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_68.jpg)
+
+原本 Input 就幾乎都是 GPT 做的了，所以架構沒啥問題，這次主要是把腳本轉移到正確的層級而已，然後用 Assembly Definition 管理各層的依賴，以及讓 Domain, Application 層級與 Unity 隔離。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_69.jpg)
+
+不過我其實有個疑惑，輸入系統本身應該是 Presentation 相關的，但輸入系統中的實施應該放在 Infrastructure 還是 Presentation 比較好？
+
+問了一下，GPT 說是 Infrastructure ，那就繼續維持在 Infrastructure 吧 : )
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_70.jpg)
+
+### 重構狀態機（30% AI）
+
+再來是狀態機重構，但不是先前讓 GPT 寫的模組化框架，而是我對遊戲進行的實施，就是角色相關的狀態實作要重構。
+
+一樣先打包給 GPT 看，要他提供建議。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_71.jpg)
+
+是基於 DDD 的原則，我的狀態機實施不應該直接依賴「第三方」模組（雖然也是我的模組），所以後面的對話中 GPT 提供了多一層 Application 包裝的方案。
+
+但這樣本末倒置了，原本那個狀態機框架就是要直接用的，其實就跟 Domain, Application 層級用途相同，沒必要再多包一層。
+
+所以我把框架也給 GPT 看，他就修正建議，讓專案的實施直接跟狀態機框架對接。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_72.jpg)
+
+然後就是重構，一樣建立四層結構，Domain, Application, infrastructure, Presentation，這次改名叫 Character。
+
+Domain 中就是狀態的基礎定義，包括狀態本體、轉換條件、配置參數和動態參數。然後把裡面對 Untiy Component 或變數的依賴排除掉。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_74.jpg)
+
+原本的 Addon 機制改放到 Application 層級，當做狀態機與外部世界的轉接，包括實際執行移動、攻擊、將輸入與 AI 資訊傳入狀態機，以及視覺相關處理。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_75.jpg)
+
+但 Application 仍然不應該直接依賴外部解決方案，所以裡面也定義了轉接用的抽象 Ports，包括執行移動的接口、取得 Input 資訊的接口等等。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_76.jpg)
+
+直到 Infrastructure 層才有對 Unity 功能的實施與對遊戲中其他系統的依賴，還有工廠、組裝規格實施方案，最後提供一個讓外部訪問的 Controller。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_77.jpg)
+
+目前新的 Controller 就是組裝角色而已，先呼叫依賴注入，然後初始化相關的 Infrastructure 與 Presentation，最後組裝狀態機。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_78.jpg)
+
+Infrastructure 會負責註冊 Addon 需要的各種 Port ，例如對 Rigidbody 轉接的 IMovementPort 或是其他遊戲系統的轉接和初始化。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_79.jpg)
+
+Presentation 也類是，只是負責註冊跟視覺相關的 Port。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_80.jpg)
+
+當工廠要組裝 Addon 時就會建立需要的 Port 注入，我先用比較暴力的方式寫 Addon 與 Port 的對應，之後可能要搞個自動檢測比較好。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_81.jpg)
+
+這部份的重構也沒什麼破壞性，大部分的舊實施直接轉移到對應層級就好了，只是要把一些直接依賴改成抽象接口，等後續補上其他系統就能恢復功能了。
+
+原本的除錯視窗也能直接沿用，我還要 AI 多補了一個顯示有哪些 Addon （和註冊內容）的欄位。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_82.jpg)
+
+### 重構背包系統（30% AI）
+
+背包系統，當下紀錄的不夠，寫的時候有點忘了，我記得好像是自己稍微重寫之後，再要 Claude Code （對我也訂閱了 Claude Code）直接幫我改成 DDD 架構，然後背包相關操作用 Usecase 的方時實作。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_83.jpg)
+
+因為原本背包就不是很大的系統了，所以整個重寫也不會怎樣（反正也不用自己寫）
+
+Domain 層包括背包的本體相關 Entity, Event, 背包道具的介面等等。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_85.jpg)
+
+介面定義了道具 Item 能執行的各種動作，包括撿起、丟棄、投擲、使用或召回。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_86.jpg)
+
+Application 則針對各種背包操作實作 UseCase，包括前面提到的撿丟使用，還有切換背包欄位等。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_87.jpg)
+
+infrastructure 就是實施…一些東西，事件、過濾器、道具儲存方案等等，然後提供一個 InventoryController 當做外部操作的進入點。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_88.jpg)
+
+因為背包系統還不複雜，所以只有整個系統用一個 Assembly Definition 檔著，就沒讓四層各自建立了。
+
+Presentation 還沒實作，只有先讓 Claude 寫了簡單的 CustomInspector 顯示背包內容方便看效果 :P
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_89.jpg)
+
+### 重構視覺容器（20% AI）
+
+視覺容器是重構改動比較大的部分，原本腳本的職責太混雜了，所以幾乎整個重寫。
+
+Domain 是裡有視覺容器的顯示模式，計算用的 ValueObject 、策略接口以及策略模式算法定義。float3 是偷 Unity.Mathematics 函式庫的數學變數來用的，我直接複製整份到我的程式模組包。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_90.jpg)
+
+Application 定義了容器需要的接口、各種 Port 接口以及各種視覺容器的 UseCase，UseCase 透過對應的 Port 執行具體行為，例如更新顯示模式、設置錨點、旋轉、翻轉等等。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_91.jpg)
+
+Infrastructure 進行 Port 的 Unity Adapter 轉換實作，把攝影機資訊、Unity Aimator 等資訊轉接給 Application 的 UseCase。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_92.jpg)
+
+最後 Presentation 提供一個 Monobehavior 的 Controller 提供外部操操作的進入點
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_93.jpg)
+
+為了避免計算互相干擾，不同顯示功能分成不同 Transform 執行，最上層是面對攝影機的 Billboard 算法、第二層是控制中心點偏移、第三層負責旋轉和翻轉，最底下則會放入真正的視覺物件實例。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_94.jpg)
+
+而要操作視覺容器的 Character 方面也增加一個 Adapter，把 VisualController 轉接成狀態機 Addon 使用的 IVisualPort 。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_96.jpg)
+
+Character 的視覺幾乎是沿用舊版，由兩個 Addon 分別處理動畫播放（根據狀態）和翻轉（根據行動時面對的方向）。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_97.jpg)
+
+雖然都一樣，但還是放張新動圖示意。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_3.jpg)
+
+視覺容器也沒有用嚴謹的分層，但目前的架構已經夠好維護了，真的需要再回來改就好。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_98.jpg)
+
+### 資產載入器（90% AI）
+
+上面重構了視覺容器，但有容器也還無法顯示 Character，需要有真正的視覺物件實例。
+
+因為我們要使用 Unity Aimator 當做動畫方案，所以會用 Prefab 做好不同角色、敵人的視覺物件，遊戲物件生成時也連帶用 Instantiate 生成需要的視覺。
+
+我把以前的 AssetLoader 框架給 Claude code CLI 看，要他重構成核心的 Core 層與針對 Unity 實現的 Unity 層，當做未來可以重用的模組。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_99.jpg)
+
+核心接口把載入過程分成多個階段，資產來源提供、資產解碼器、資產快取跟 Loader 本體接口。Unity 的部分實現了最簡單的 Resources 載入（引擎自動解碼），以及自由度較高的 StreamingAsset 載入（字定義 Byte 解碼）
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_100.jpg)
+
+但專案部分為了省事先用 Resources 當載入方案，未來要替換都行，反正接口都一樣。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_101.jpg)
+
+專案建立一個自己的 IAssetService 用來與專案的需求對接，內部則是調用 AssetLoader 模組提供的現成載入方案。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_102.jpg)
+
+還有進行全域 DI 註冊，提供一個靜態的 Installer 讓遊戲的 GameCompositionRoot 在初始化階段安裝到全域系統中。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_103.jpg)
+
+Character 的 Presentation 會在初始化時透過（自動注入的） IAsserService 生成自己的視覺實例，然後附加到視覺容器底下。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_104.jpg)
+
+好像沒什麼必要，但還是加一張視覺實例被生成的畫面。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_4.jpg)
+
+### 戰鬥系統框架（80% AI）
+
+戰鬥相關的系統，也是原型中比較混亂的部分，傷害、血量什麼的很零碎，而且敵我辨識方案也是先應急寫的，這次重構也要完全打掉重來。
+
+我先給 GPT 舊腳本，要他提出架構範例，然後要他把某個些地方修正成比較貼近我想法的方案，最後再轉存成一份 md 文件。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_105.jpg)
+
+我把文件給 Claude 閱讀，要他計畫一下怎麼重構成可重用模組，我沒特別要求，但 claude 讀了我的模組化資料夾，主動參考相似的格式做計畫。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_107.jpg)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_108.jpg)
+
+後續的對話我找不到去哪了==
+
+沒記錯的話，當時就是先讓 claude 寫了這個戰鬥框架，但還是太 Overdesign，所以我又重新簡化過一次。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_109.jpg)
+
+抽象接口的 ICombatEntity 代表所有能參與戰鬥的實體，裡面帶有陣營辨識符 IFactionIdentifier 和戰鬥用的屬性參數 ICombatStats 。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_110.jpg)
+
+ITargetingFilter 作為戰鬥目標的過濾器，根據自身與目標的資訊，判斷是不是一個合法的但鬥行為的指定對象。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_111.jpg)
+
+ICombatOperation 和 Data 用來定義一個戰鬥的行為和輸入參數。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_112.jpg)
+
+戰鬥需要的資訊會透過一個 Context 傳遞，帶有一個 <T> 為戰鬥的參數輸入。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_113.jpg)
+
+戰鬥行為則透過 CombatService 和 TargetingService 進行，透過泛型 <T> 指定要進行的戰鬥行為或目標過慮方式。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_114.jpg)
+
+上面就是一個不涉及任何任何實作的戰鬥框架，具體戰鬥行為會再根據專案需求實作。例如定義一個造成傷害的戰鬥行為，Data 需要指定傷害量，戰鬥行為就會從目標身上扣除指定血量。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_115.jpg)
+
+一個簡單的碰撞傷害器，如果 Collision 目標為 ICombatEntity，就在確認目標合法後造成指定傷害。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_116.jpg)
+
+提供一個 Controller 當外部的操作入口，初始化需要注入一個 ICobmatStats，作為戰鬥實體的屬性參數來源。（但 Controller 內容還沒實作完）
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_118.jpg)
+
+Character Infrastructure 初始化時會透過一個 Adapter 把通用的 Stats 轉接成 ICombatStats 讓戰鬥系統使用。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_119.jpg)
+
+Stats 原本 Day8 有做過，是用一個通用帳簿系統 Ledger 管理的，但後來使用發現有點 OverDesign 了，所以做了簡化和重新命名，StatsController 就是 Stats 的操作入口。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_120.jpg)
+
+總之，這個戰鬥的框架不在乎 stats 的來源，也不定死能進行的戰鬥行為和敵我辨識方案，全看專案怎麼實施。
+
+### 射彈系統（50% AI）
+
+射彈 Projectile，各種遊戲中很常出現的投射物，一個俯視角動作遊戲一定也有。原本測試用的技能就是發射射彈，不過那時只是用臨時的 Prefab Instantiate 方便測試。
+
+這次重構先設計了射彈的框架，總之也簡單描述需求，看看 GPT 有什麼看法。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_121.jpg)
+
+GPT 給了蠻完整的方案，但也是很 OverDesign，所以我先挑出幾個關鍵接口，整理成我期望的框架後再給 GPT 看，然後再拿 GPT 的修正版修成我要的最終簡化版。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_122.jpg)
+
+最後也是很簡化的框架，使用組件化容器 + 載荷的方案，射彈需要的組件包括碰撞檢測和移動軌跡計算，一樣全部接口化，不綁死方案，讓每個專案各自實施需要的做法。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_123.jpg)
+
+擊中效果與子彈的實體（或視覺）則透過載荷 IProjectilePayload 處理，把射彈的各種活動時機也做成接口，如果載荷需要什麼效果就自己繼承實作。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_124.jpg)
+
+本體就是射彈的基本屬性、組件和載荷的整合，使用前可以先設置碰撞、路徑組件、放入載荷，然後再透過 Activate 啟動射彈，用 Tick 更新活動狀態。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_125.jpg)
+
+原本還想弄個工廠或物件池框架，但實做起來發現有點過度設計，所以暫時不管。
+
+至於專案的實施，碰撞部分我先使用一個 Bridge 腳本跟 Monobehavior 的 OnCollisionEnter 檢測整合。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_126.jpg)
+
+移動軌跡先用了簡單的直線移動，之後要拋物線、追蹤、抖動、軌道繞行之類的只要繼承介面實作就好，也可以用修飾模式 Decorator 組合多種移動軌跡，或是整合資料驅動的計算方案。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_127.jpg)
+
+至於載荷，我實做了一個攜帶 GameObject 的載荷，如了能讓射彈的視覺特效附加在子彈上，也能把各種遊戲物件直接當射彈發射。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_9.jpg)
+
+能攜帶物件也是我用載荷方案的主要原因，前面的文有提到過，遊戲目前會被投擲或發射出去的東西有三種，第一是玩家的武器、第二是從武器脫離的敵人、第三才是真正的射彈。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_1.jpg)
+
+原本三個是完全獨立的做法，現在可以全部用相同的射彈方案解決。
+
+我做提供一個 ProjectileInstance 當做射彈與 Unity 物件的轉接，用 FixedUpdate 更新射彈，然後把位置設置給 Rigidbody，射彈就能在 Unity 場景中活動了。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_10.jpg)
+
+發射的時候就可以讓射彈攜帶其他物件，武器投擲時就把武器物件當載荷、敵人脫離時就把敵人當載荷、單純的傷害射彈就用視覺特效（和擊中效果）當載荷內容。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_11.jpg)
+
+其實這篇原本是武器的重構，但開發時發現武器用狀態機也有點過度設計了，所以先做了射彈系統，這樣玩家投擲時就能直接把武器當載荷發射出去，大幅簡化武器系統的複雜度
+
+### 武器投擲重構（10% AI）
+
+武器投擲，已經做完了射彈系統，現在只要把武器投擲的東做跟射彈串接上就好。
+
+初步的做法先省略，因為後面改掉了，總之我遇到的第一個問題是武器投擲時，生成的射彈會直接跟玩家（發射者）碰撞。
+
+所以我先 commit 一版，然後要 Claude Code 給我解決方案看看。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_12.jpg)
+
+因為武器投擲涉及四個系統，Character > Inventory > Weapon > Projectile，解決方法會有點麻煩，所以我也把關聯系統告訴 Claude Code，要他去看看整體架構。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_13.jpg)
+
+雖然 Claude 是修好了，但我覺得它的方案不夠理想，他直接把 Inventory Domain 的 IThrowable 加上一個 Collider 資訊的輸入。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_14.jpg)
+
+但在 DDD 中，Domain 層不應該有 Unity 的參考，所以我要 Claude 再再改方法，用另一個 Context 的 Interface 攜帶資訊。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_15.jpg)
+
+但但但再修改的方案還是不理想，她用一個 context 把 collider 透過 object 傳遞給武器，再讓武器傳遞給射彈。
+
+在 DDD 中的 Unity 參考傳遞問題蠻麻煩的，因為不同領域邊界 Bounded Context 之間要透過 Infrastructure 層訪問目標 BC 的 Application 層，但 Application 也是無 Unity 的，所以 interface 接口不能輸入或輸出 Unity 參考。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_16.jpg)
+
+給 Claude 重構的過程我也同時問了 ChatGPT 一些問題，在一長串對話後我得到一種折衷？的思路，透過泛型定義一個 Context 資訊接口。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_17.jpg)
+
+如果用泛型的話，就能在 Application 層不定死，但在 Infrastructure 指定 Unity 型別。這樣在 Character Infrastructure （武器投擲者）初始化時，就能把 Collider 資訊註冊給 Inventory。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_18.jpg)
+
+而道具投擲或其他行為的接口，就能傳遞整個 Context，讓實做方取得自己需要的資訊，像是這裡的 Collider 參考。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_20.jpg)
+
+至於 Projectile 部分就先用了簡單暴力的方式傳遞跟設置 ignore 之後再想。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_21.jpg)
+
+武器投擲的視覺效果則是透過領域事件發佈，讓 WeaponView 監聽事件，並執行視覺效果，設置 Billboard 的顯示模式，或是讓武器旋轉。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_22.jpg)
+
+投擲示意圖，參數什麼都還沒調就是了，所以動作看起來怪怪的，但運作邏輯是正確的。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_5.jpg)
+
+### 小結論和鐵人心得
+
+到這裡是我 IThome 鐵人賽的第 30 篇進度，雖然在「測試競技場」那段就有一個測試用的原型了，但因為缺少必要的回饋，所以先不提供試玩連結。
+
+等後續重構完，把基礎體驗完整到一定程度會再公開試玩，這裡先放個專題進度審查交的影片。
+
+[https://youtu.be/9RZXbTML6sU](https://youtu.be/9RZXbTML6sU)
+
+這部分從「學習 DDD」開始，對我來說就算踏入某個未知領域了，做到後面還發現自己好像有些蠻重大？的理解錯誤，像是 Controller 應該屬於 Presentation 而非 Infrastructure，或是 Port 的意思一直沒搞清楚。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_23.jpg)
+
+還有跨 BC 之間的溝通方式的問題。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_24.jpg)
+
+然後寫到後面，蠻多地方都用 <T> 偷渡 Unity 資訊，比較好的做法好像是透過某個 Share 的 ID 系統查詢需要的參考才對。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_25.jpg)
+
+畢竟是邊做邊學的，等我發現問題時原本的系統重構的差不多了，要再修可能又得打掉不少東西，所以就先算了，反正現在架構也用一種錯但有自己邏輯的方式運作起來了，記住問題等下次再改善就好，目前最重要的是完成專題。
+
+至於鐵人活動的心得嘛…
+
+其實沒特別心得，因為平常就有寫日誌的習慣了，這次參加也沒訂什麼特殊的題目，就是把平常會有的日誌轉發而已，我的文很早就備完了，比較煩的是每天會擔心自己有沒有記得發文，鐵人活動應該提供個預約發文功能才對。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_26.jpg)
+
+至於 AI 方面的使用心得，基本上也與上篇【專題】跟【學習】一樣，沒什麼變化，目前 AI 對我來說就是一個提高效率 + 擴展能力邊界的最佳手段。
+
+但 Vibe Coding 相關的知識還有待加強就是了，之後也會多關注一些資訊。
+
+然後這啥鬼，超沒禮貌欸，這人到處去別人的文底下宣傳自己，然後留言像 AI 自動摘要的內容，輪到我不知道是失靈還是怎樣，寫的像海發的罐頭留言。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_27.jpg)
+
+bro 你凡說句「祝專題順利」也好，而且我第一句就是自介了還給我未知作者是怎樣？不知道怎麼稱呼就用您，或乾脆省略主詞也行，未知作者到底是三小，真的是沒禮貌到極點欸。
+
+越看越氣，氣到要寫進日誌==
+
+### 心得之二
+
+**這篇內容的實際上只到月初 (10/1) 為止**，上面的心得也是鐵人最後一篇時寫的，因為當時的進度就夠發到鐵人活動的第 30 篇了，所以整個十月的新進度都沒寫進文。
+
+其實原本 [\*\*【專題】系統原型和 AI 的瘋狂效率](https://home.gamer.com.tw/creationDetail.php?sn=6205856)** 才是這個月要發的文，但發完八月的[**【學習】自動化、MCP 和 Vibe Coding](https://home.gamer.com.tw/creationDetail.php?sn=6203313)\*\* 後我發現專題內容已經多到能直接發文了，所以就追加。
+
+我想過要不要這篇也當加碼，但這兩月已經花太多時間寫文，所以先算了。
+
+這兩篇【專題】就當做我對 AI 使用方式的分享吧，分享一下我是怎麼提問、靠 AI 輔助學東西和 Vibe Coding 的，之後不會再有這麼多瑣碎內容了，**至於 DDD 的重構內容看看就好，做到後面發現有「超多」理解錯誤的地方。**
+
+我盡量截對話了，但那些也只是我真實提問數量的 1%，就是提供個自學方法的概念而已。
+
+（如果你是跳著看的話建議看中間「學習 DDD」那段，那部分應該是這篇比較重要的地方，裡面截比較多我的 GPT 提問內容）
+
+目前對 DDD (Domain Driven Development) 的感想就是，這是一個規範超級嚴謹的架構，因為不同層級的程式會用 Assembly Definition 隔離，跟之前的單純 public private 又完全不同等級。
+
+原本讀 Clean Code (DDD) 資料只知道架構會分層四層（Domain, Application, Infrastructure, Presentation），但實做還是一直感覺怪怪的。
+
+這次做才知道，如果架構規模更大（如複數遊戲系統），必須要先將系統分成多個「領域邊界 Bounded Context 」 (BC) ，每個領域底下才分四層架構。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_28.jpg)
+
+然後純 C# 的核心 (Domain) 跟應用層 (Application) 要跟 Unity 隔離，只能透過 interface 的 Port 從基礎設施 (Infrastructure) 實現後注入給中下層。
+
+而跨系統（跨領域邊界）之間的互動規範也很嚴謹，假設有 A, B 兩個系統（Bounded Context），如果 A 需要訪問 B 的話，「只能」讓 A 的 Infrastructure 透過 B Application 層提供的契約（Application Contract）訪問。
+
+每個 BC 的每個層級都會被 Assembly Definition 擋住，每層又有自己的規範和訪問權限，要訪問一定要設置 Definition Reference，所以有違規一眼就看的出來。
+
+除此之外，架構裡還會有一些全域共用 (跨 BC 的) 的核心抽象層 (ShareKernel)、溝通契約 (Published Language)、平台基礎設施 (Platform / Cross-cutting Infrastructure) 以及整個架構的系統組合根 (Composition Root)
+
+所以，如果要照著規則走的話，不該訪問到的東西就真的「不可能」訪問到。
+
+但我也沒完全照著走就是，有些系統為了省事就沒顧了 :P
+
+畢竟剛開始做的時候就有理解錯誤，所以錯的地方就只能先錯下去了，違規最嚴重的就是最先重構的 Character 系統（圖是 Character 的 Infrastructure 層），參考一堆不該參考的東西，但也沒辦法，只能新的地方再評估要遵循規範到什麼程度。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_29.jpg)
+
+畢竟也不能無止境的重構下去，「夠好」真的就很好了，之前就因為這些完美主義搞砸不少事 ):
+
+[https://youtu.be/HvLXaAle5jw](https://youtu.be/HvLXaAle5jw)
+
+花不少時間在摸索，剛開始重構時也對一些規範蠻疑惑的，但做到後面開始懂這套架構的優勢了，就真的很「乾淨」，難怪之前 Clean Code 資料會查到 DDD 這裡來。
+
+一些常見系統的 Domain 跟 Application 還可以直接被抽出來當可重用框架，就像我兩篇【專題】讓 AI 寫的模組化東西，但規範又更嚴謹和具體。
+
+但這玩意沒人教要怎麼學啦==
+
+除非去上課，不然不靠 AI 我應該不可能自學，那堆名詞我花整個月各種實做、踩雷 + 提問才開始搞懂，能有 AI 讓我隨時問真的幫助巨大。
+
+總之，下篇【學習】會再把 DDD 的筆記做完整 :D
+
+是說巴哈寫遊戲的人是不是變多了啊，感覺推薦欄出現好多，還是只是我一直用舊版所以都沒看到 🤔
+
+啊然後，不知道有沒有人記得我之前搞過一個閱讀群組？但後來因為讀書的時間少了，加上也沒多餘心力管理群組所以放置了。
+
+不過前段時間在好友 %%鼠的提議下，我們開始讀 《[GPU Gem3](https://developer.nvidia.com/gpugems/gpugems3/part-i-geometry/chapter-1-generating-complex-procedural-terrains-using-gpu)》，我是讀線上版的，瀏覽器裝了一個「[**沉浸式翻譯**](https://immersivetranslate.com/)」插件可以中英對照著讀，減少蠻多語言壓力。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_31.jpg)
+
+我的預計速度是兩週一章（整本有 41 章），目前進度才剛讀完 **Chapter 1. Generating Complex Procedural Terrains Using the GPU。**
+
+一天大概花 30~60 分鐘讀，有讀的話會在頻道裡打個卡，沒時間或沒心情就 pass，反正就當一個被動累積的技能樹，也不用給自己太大壓力。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2025/post-2025_10_31-learn-integration_prototyping_learning-ddd/image_32.jpg)
+
+總之 DC 連結在這 : [https://discord.gg/EKeYKdExQ](https://ref.gamer.com.tw/redir.php?url=https%3A%2F%2Fdiscord.gg%2FEKeYKdExQ)
+
+啊這次就佛系管理了，雖然會打卡，但我自己應該也不會太常出現，畢竟本來就不是會在群組活躍的人 :P
