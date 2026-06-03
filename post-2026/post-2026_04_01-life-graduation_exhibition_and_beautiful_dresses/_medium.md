@@ -1,0 +1,326 @@
+
+# 【生活】畢業展和漂亮洋裝
+
+這篇也有大量負面情緒，慎讀
+
+原諒我放著之前的留言沒回…我之後會回的，等我有辦法的時候
+
+※諮商 4/2
+
+睡過頭，諮商以來第一次遲到，是被電話叫醒才跑過去的，太累連聊了什麼都忘了，諮商師說可能有很多事正在發生，身體先反映出來了。
+
+我說整週的睡眠都很差，幾乎睡整天，一天躺三次。還有聊專題、出路，前幾天才壓線報名完成比賽。還有一些讓我哭醒的惡夢，但沒紀錄到也忘了。
+
+※4/12
+
+又一個更可怕的惡夢，哭醒，好可怕，媽的
+
+我夢在小時候的房間，我妹大叫著跑進來，她被嚇壞了，房間外一片黑，我媽在外面想闖進來，我擋著門，拿剪刀往門縫割，最後把剪刀插刀她臉上…
+
+想起來，我第一次（可能也是唯一一次）鎖門是蠻小的時候，那時還不是睡在自己的臥室，而是全家一起睡的房間。我忘了自己為什麼而鎖們，只記得最後他們是拿槌子或什麼的，直接把木門的門閂敲出一個洞開門的。
+
+※4/13
+
+回診，醫生又幫我改了藥，變成離憂, 美舒鬱, 牟靜。
+
+※4/14
+
+一早起來，頭痛到炸裂，這天吃了兩顆普拿疼 ==
+
+※4/16 諮商
+
+這次提到我很習慣道歉的事，小屋裡也蠻常出現「對不起」的，也不是真的在對誰道歉，但就是…覺得應該道歉。
+
+我想起想時候很常因為「做錯事」要跟媽道歉，我得一重複的說對不起…對不起…對不起…對不起，直到他理我或原諒我，很多時候他還會問我道歉的理由，但我也不知道我到底做錯什麼惹他生氣，然後就會繼續無視我，而我得一直重複到她終於肯接受…或聽膩了。
+
+還有幾次她把我關在廁所裡，我覺得好可怕，在裡面一直道歉，想把門打開但做不到，因為她在門外拉著，就是不讓我出去。
+
+我只能一直重複道歉…..
+
+※4/18
+
+幹，美舒鬱劑量吃錯了，每天半顆吃成一顆，要命
+
+難怪頭會痛，哭阿，頭痛了整週
+
+※4/??
+
+忘了是哪天，又做了惡夢哭醒，夢到現在的住處也變不安全了，可能是搬家的事情讓我太焦慮了。
+
+※5/1 買衣服
+
+聽校內展審查規則說，第一天須要白襯衫 + 黑長褲 (長裙)，後面兩天才能自由穿衣。所以只好自己跑一趟 NET，買了不錯看 (也不錯穿) 的襯衫和長裙。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_13.jpg)
+
+當然是裙子，褲子什麼是不可能穿的了。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_27.jpg)
+
+※5/3
+
+今天把前面的碎片都組織起來，中間快半個月都沒紀錄到…原諒我還沒有回上一篇的留言。大學就剩一個半月不到，這個月都是展覽，今天把專題的兩篇宣傳文章發了。
+
+有好多事要處理…我好累，畢展、搬家、研究。
+
+生活作息完全是亂的，有時會睡整天，心理狀況雖然穩定的多，但依然是藥物在作用。除非有其他事情佔據注意力，不然難過的感覺還是不斷浮現，還有不知道自己為何存在的虛無感。
+
+躺在床上滑手機的時間顯著變多了，主要是早上的時候，我也不想這樣，但就是沒力氣起床。
+
+※5/4 校內展場佈
+
+跟三審一樣，自己的角鋼自己敲，之後整個月都要重複這個過程。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_2.jpg)
+
+朋友組有個大佬繪師 ([Ad En 阿電](https://www.facebook.com/profile.php?id=100080869357764))，看板精緻度根本降維打擊，而我們的是副組長臨時趕回家修改出的備案版本，因為主美又睡死開天窗了==
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_3.jpg)
+
+但有一說一，主美幫我們設計的名牌真的很漂亮。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_15.jpg)
+
+※5/5 校內展第一天
+
+一早開始拉肚子，拉了二十多分鐘才出門，這整天肚子都在痛。泥巴娛樂和雷亞的兩位  Tony 大大都有來，關心二審之後的遊戲狀況，還有試玩，雷亞總監說我們應該再更迷幻一點，吸一些大麻再設計關卡 (然後就被旁邊的助手? 吐嘈了)
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_19.jpg)
+
+實際看人玩遊戲真的有蠻多收獲的，而且還會遇到一些不是玩家的同學來嘗試，晚上回家吃個飯把觀察到的問題修完才睡，好像也過半夜了。
+
+※5/6 ~ 7 校內展後兩天
+
+就…繼續展，但剩下兩天我就穿女僕裝了。讓組員做了一個簡易看板，於是組長變成看板娘了。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_12.jpg)
+
+再來幾張 twitter 風格的男娘自拍，任何髮型都是組員或朋友幫我綁的。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_20.jpg)
+
+※5/9 回診
+
+劑量維持，然後醫生推薦了另一間朋友開的整所，回北部暫住的時候可能得去那裡看了。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_11.jpg)
+
+※5/11 南下青春設計展
+
+雖然可以當日通勤，但這樣跑還是太累了，所以我跟朋友一起訂青旅住，平均起來一天也才 300 而已。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_4.jpg)
+
+因為提早南下，我們有一天的時間能自由活動，就去高雄車站逛了，中午吃了美食街最頂級的漢堡和拉麵，雙重享受。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_21.jpg)
+
+※5/12 青春佈展
+
+佈展，反正流程都一樣，大熱天在沒有冷氣的倉庫裡敲角鋼。下午的雲蠻好看的，順手拍了一張。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_5.jpg)
+
+晚餐跑區 IKEA 吃，點餐區最先展示甜點真的很邪惡欸==
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_1.jpg)
+
+晚上用飯店電視看了超時空輝耀姬，乃依真香
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/jaEhX74GkaizPfUk8M.webp)
+
+※5/13 ~ 17 青春展期
+
+展出期間…就一樣，穿女裝站在攤位前，招客人來玩，然後觀察玩家的反應和做筆記。如果路人感興趣但攤位已經有人在玩的話，我就會拿看板過去讓對方掃 Steam QR Code。
+
+原本買了四套女僕裝，想說四天展期能輪著穿不同風格的，結果一套尺寸過大，另一套配件整個不見，發現的時候已經太晚了，只好展期 (15 號) 的時候跟朋友去補買兩套女裝。
+
+新的兩套都是露肩上衣 + 長裙，雖然沒有「哇 ! 有女僕」的效果，但穿著還是挺漂亮的。~~我都不知道裙子還有 XS 號的，比 S 號還小，幫忙挑衣的朋友表示憤怒。~~
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_22.jpg)
+
+展場太冷，借了朋友的大衣外套直接變女總裁風格。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_6.jpg)
+
+大多組員有排班，但我幾乎所有時間都在，除了中午會躲進倉庫吃午餐 + 午休以外，其他時間都在攤位上吧，也沒去逛展...沒什麼動力逛。
+
+※5/17 青春頒獎日
+
+頒獎日一早就被惡夢醒來，然後因為一些社交失誤在展場崩潰，一些不該說的話好像傳到朋友耳裏，於是像對方道歉…然後我崩潰了，在展場裡哭的不停。
+
+朋友們都被我嚇到了，我也沒想到自己反應會那麼大，當下的情況觸發我的創傷反應了，一直很緊繃的情緒斷裂就直接大崩潰。
+
+專題真的把我耗盡了，我好累，好多事都不知道該怎麼辦…
+
+後來請朋友緊急回飯店幫我拿藥，多吃了一顆離憂…其實不該這樣的，但我沒有緊急用的藥，只好先吃晚上的，還有吃朋友們往我嘴巴塞的各種零食。
+
+然後就是頒獎典禮，我們拿了優選。這應該是隆重和榮耀的場合，但我只感覺到一種虛無感，一種親眼見識「倖存者偏差」的意思的感覺。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_23.jpg)
+
+原本以為這是入圍就有獎的，結果不是，但所有入圍者都得參加頒獎…意思是在場有一半的人坐在這裡，看著其他人上臺，獲得自己得不到的注目。
+
+雖然我們有拿到獎，但意識到這點讓我好不舒服。
+
+頒獎最後有一個大合照，巨大的舞台能讓所有入圍的人都擠上去，站在台上看到的光景和照片中的青春活力完全不同，一片片的失落。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_24.jpg)
+
+人活著究竟是為了什麼呢 ?
+
+有多少人花了四年在大學，花了多少時間的付出在畢業製作，那些無法走上臺的人是什麼感受呢? 如果不是所有付出都能被看到，被關注，是什麼支撐人們走下去的？
+
+是對未來能被看到的想像嗎？還是真的對自己在做的事有所夢想？
+
+但又有多少人能真的做自己喜歡的事？
+
+我究竟為什麼活著，因為我有所追求嗎？還僅是因為活著，所以繼續活著而已？
+
+這些…思考讓我更意識到自己不該去追求獎項，因為這是大多人都會輸的遊戲。
+
+但我感覺自己活在一片虛無之中，我不知道自己為什麼活著，朋友說我只是生病了才會這樣想……或許吧，我確實生病了，一直都是，但我真的想好起來嗎？
+
+我不知道
+
+我好想哭
+
+感覺自己想追求的事一件件被劃掉，讀大學、做遊戲、交朋友或穿女裝，或許是完成了，或許是刪掉了，但沒有再寫新的東西上去。
+
+感覺就像某種遺願清單一樣……
+
+※5/19 回台南
+
+因為畢業展的關係諮商斷了兩周，要從高雄退房的那一早，雖然沒做惡夢…至少我沒印象，但大腦好像又開始往心中的深淵望去了。
+
+我的狀況…好像又惡化了
+
+回程的路上打電話給診所問能不能提早回診，搭區間的時候還在座位上哭了出來。
+
+下午回診，醫生幫我追加早上的藥（永康緒） 還有緊急情況的備用藥（安邦）。斷兩周的諮商好想比我想的嚴重，醫生也說諮商不能斷，所以當天也寄信寄信給輔導組說明狀況，剩下的兩週會在固定時間打電話關心，但只能十分鍾。
+
+晚上就修了關卡設計，然後處理 artbook 的 DLC ，也是弄到半夜才睡。
+
+※5/20 北上
+
+做區間去高鐵的路上又哭了，該不會備用的藥馬上就得吃了吧…最後還是沒吃。我的心理好像變得很脆弱，好像隨時要碎掉一樣，好想哭。
+
+好希望某個意外能在我意識到之前就帶走我，或是睡著就不要再醒來了。
+
+我好害怕回家，我不喜歡那個地方
+
+我怕又會見到她
+
+※5/21 佈展
+
+北上的時候我把自己的筆電也帶上了，只是想提早把一些東西拿回去而已，減輕後續搬家的負擔。佈完展後就搭捷運去找爸吃飯，聊家裡的事、展覽的事、弟弟妹妹的事。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_7.jpg)
+
+吃完，爸載我回飯店的時候我也講到自己用藥劑量增加的事，爸不是很理解，為什麼明明那麼久沒見到媽了我還會被影響，他覺得這些事情也不應該靠藥物。
+
+我不怪爸，但我也不敢說實話。
+
+我一點都不想吃藥，也不覺得吃藥能治好我，甚至不知道自己是不是真的希望好起來。吃藥只是為了讓我能活下去而已，讓我不會被尋死的念頭淹沒。
+
+我的情緒在崩潰邊緣
+
+※5/22~25 新一代展期
+
+我們的飯店在台北車站，要搭藍線到南港展覽館，穿女僕裝搭捷運也已經是小 case 了。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_8.jpg)
+
+其餘幾天就是擺攤，看玩家試玩、讓路人掃 QR、作筆記，就是一樣的過程。我好喜歡玩家在攤位前思考時發出「 想通了」的聲音。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_25.jpg)
+
+其中一天還被組員的朋友幫我綁了超漂亮的髮型。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_26.jpg)
+
+新一代期間讓我最開心事情是跟群組朋友們見面，還有跟認識最久的朋友第一次見面。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_16.jpg)
+
+而令我最意外（驚喜、感動）的是收到同人創作，有兩個玩家試玩完之後，在展場裡直接畫了一張圖和寫了一篇故事給我們。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_17.jpg)
+
+展出的第三天？突然收到一通電話說我報名的比賽期限要到了，那個比賽是指導老師在比較後期才給的，後來收到通知才知道比賽須要交哪些資料（在剩不到一天的時候）。
+
+收到通知的當下我整個焦慮到爆，開始想怎麼處理，趕快要還能做事的組員幫忙整理…但後來還是決定推掉，它的時程會拖到六七月，到時還得實體上台報告。
+
+我好累…我真的做不到了…
+
+※5/25 修關卡
+
+展期最後一天，開始小撤場的時候我就先趕高鐵回台南了，上次改動的關卡設計有嚴重的問題得馬上修。結果那天高鐵剛好出一些問題，只有自由座能搭，站了一段路才有位置坐。
+
+修到兩點，太累直接躺床就睡了，結果忘記吃藥，感覺像做了整晚的惡夢，一個超級長、連續的惡夢，裡面有所有我害怕的東西，所有。
+
+※ 5/26 ~ 30 放視展期
+
+就...也差不多，不過放視大賞算比較有重視遊戲領域的展覽，所以會有更多業界的人來訪。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_18.jpg)
+
+某天晚餐跟朋友吃飯的時候，大腦又在想以前的事，家長拿小孩比較、攀比什麼的，小時候我媽都說她不會拿我跟別人比，但同時間我又想到鄰居是怎麼向媽稱讚我的
+
+我才意識到，原來不是她不會說什麼「別人家的小孩怎樣怎樣好」
+
+她不比較只是因為…我就是那個別人家的小孩
+
+※ 5/30 這裡有男娘ㄡ
+
+頒獎典禮正式開始前的暖場，主持人讓台下同學只要舉手就能拿麥克風說任何想說的話，於是我就舉手了 :DDDDDDDDDDDDDDDDDDDD 
+
+[https://youtube.com/shorts/tgmClNfBAi0?feature=share](https://youtube.com/shorts/tgmClNfBAi0?feature=share)
+
+上面的照片都有遮，但放視官方這張真的拍的太完美了，我捨不得遮==
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_10.jpg)
+
+※ 5/30 領獎
+
+虛無…又是一種虛無，我們得到優選了，但我也以為入決選就有獎，結果不是。比起得獎的雀躍，出現更多的情緒是鬆一口氣的感覺。另一組的朋友就坐在我的左前方，他們最終沒有沒有上臺…他們是怎麼想的呢？心裡會有什麼感受？
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_14.jpg)
+
+銀獎、金獎都是單人組上台，如果我當初選擇……不，不要美化那些沒去走的路，要是當初獨自一人，我恐怕只會被這些東西吞噬。
+
+我好怕這一切。
+
+領完獎後，還有半天的展覽要繼續，這段時間（還有前幾天）收到了不少業界前輩的關照，赤燭、臺北電玩展、泥巴娛樂、沃兎奈，還有之前 CGArk 認識的放視官方的人跟這次展覽的各位評審，看來男娘的部分成功讓眾業界大佬們記住了。
+
+![圖片](https://raw.githubusercontent.com/angus945/diary-archive-publish/refs/heads/main/post-2026/post-2026_04_01-life-graduation_exhibition_and_beautiful_dresses/image_9.jpg)
+
+有不少人問專案有沒有打算繼續，但回覆都是否定的，這個專案已經完成、上架了，沒有打算在繼續，專題完後團隊就解散，各自找出路去了。
+
+我對玩法、謎題設計是有把握的，玩家願意站在攤位前花一個小時思索解答就是最好的證明。（主流程 20~30m, 可選的兩個挑戰關各 15~20m）
+
+我知道這個專案還有很多潛力，我知道自己設計的出更多關卡
+
+但我真的累了
+
+專題真的把我耗盡了
+
+※5/30 回程
+
+畢展結束了，我也要畢業了，沒有什麼特別開心的感覺，就是種…要發生的事總算來了的感覺。
+
+好累
+
+自傷的聲音仍在心中徘徊，小屋的這些日誌和文字只是紀錄而已，我不希望你們看了之後為我感到焦慮或憂慮，就算我最後還是走向毀滅，希望你們、希望朋友們不要覺得自己有什麼責任。
+
+這樣會讓我更難受
+
+我好自私
+
+如果眼前有個按鈕能讓我消失，就像從未存在那樣，我可能會想著大學這段時間的事情，哭著按下它，重視我和我重視的人都不會存在，這樣就不用擔心有誰會難過了。
+
+我在回家的火車上哭
+
+我沒有吃臨時用的藥
+
+我只想哭
